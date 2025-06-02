@@ -9,5 +9,5 @@ export interface ColorPicker {
    * @param onhide The callback function to be called when the color picker dialog box is closed.
    * @returns The colorPicker component returns a promise that resolves to a string representing the selected color.
    */
-  (defaultColor: string, onhide?: () => void): void;
+  (defaultColor: string, onhide?: () => void): Promise<string>;
 }
