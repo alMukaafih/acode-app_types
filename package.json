@@ -10,6 +10,7 @@
   "repository": {
     "url": "https://github.com/alMukaafih/acode-app_types.git"
   },
+  "license": "MIT",
   "packageManager": "yarn@4.5.1",
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
