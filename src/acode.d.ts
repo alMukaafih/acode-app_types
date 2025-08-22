@@ -279,11 +279,9 @@ interface PluginSettings {
   cb: (key: string, value: unknown) => void;
 }
 
-export interface Require {
-  <K extends string>(
-    moduleName: K,
-  ): Modules[Lowercase<K> extends keyof Modules ? Lowercase<K> : any];
-}
+export type Require = <K extends string>(
+  moduleName: K,
+) => Modules[Lowercase<K> extends keyof Modules ? Lowercase<K> : any];
 
 export interface Modules {
   acemodes: AceModes;
@@ -316,7 +314,7 @@ export interface Modules {
   settings: Settings;
   sidebarapps: SidebarApps;
   sidebutton: SideButtonConstructor;
-  themebuilder: ThemeBuilder;
+  themebuilder: typeof ThemeBuilder;
   themes: Themes;
   toast: Toast;
   tutorial: Tutorial;

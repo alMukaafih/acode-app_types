@@ -8,16 +8,14 @@
   },
   "readme": "README.md",
   "repository": {
-    "url": "https://github.com/alMukaafih/acode-app_types.git"
+    "url": "git+https://github.com/alMukaafih/acode-app_types.git"
   },
+  "files": ["./src", "LICENSE", "README.md"],
+  "keywords": ["acode", "types", "acode-app"],
   "license": "MIT",
   "packageManager": "yarn@4.5.1",
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "typescript": "^5.6.3"
-  },
-  "dependencies": {
-    "@types/node": "^22.15.29",
-    "html-tag-js": "^1.8.1"
   }
 }

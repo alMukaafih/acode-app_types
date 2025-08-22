@@ -10,7 +10,6 @@ __metadata:
   resolution: "@acode-app/types@workspace:."
   dependencies:
     "@biomejs/biome": "npm:^1.9.4"
-    "@types/node": "npm:^22.15.29"
     html-tag-js: "npm:^1.8.1"
     typescript: "npm:^5.6.3"
   languageName: unknown
@@ -107,15 +106,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^22.15.29":
-  version: 22.15.29
-  resolution: "@types/node@npm:22.15.29"
-  dependencies:
-    undici-types: "npm:~6.21.0"
-  checksum: 10c0/602cc88c6150780cd9b5b44604754e0ce13983ae876a538861d6ecfb1511dff289e5576fffd26c841cde2142418d4bb76e2a72a382b81c04557ccb17cff29e1d
-  languageName: node
-  linkType: hard
-
 "html-tag-js@npm:^1.8.1":
   version: 1.8.1
   resolution: "html-tag-js@npm:1.8.1"
@@ -140,12 +130,5 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 10c0/7c9d2e07c81226d60435939618c91ec2ff0b75fbfa106eec3430f0fcf93a584bc6c73176676f532d78c3594fe28a54b36eb40b3d75593071a7ec91301533ace7
-  languageName: node
-  linkType: hard
-
-"undici-types@npm:~6.21.0":
-  version: 6.21.0
-  resolution: "undici-types@npm:6.21.0"
-  checksum: 10c0/c01ed51829b10aa72fc3ce64b747f8e74ae9b60eafa19a7b46ef624403508a54c526ffab06a14a26b3120d055e1104d7abe7c9017e83ced038ea5cf52f8d5e04
   languageName: node
   linkType: hard

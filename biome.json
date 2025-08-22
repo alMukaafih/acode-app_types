@@ -33,6 +33,6 @@
     }
   },
   "files": {
-    "ignore": ["node_modules", "src/ace"]
+    "ignore": ["node_modules", "src/ace", "src/require.d.ts"]
   }
 }

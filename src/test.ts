@@ -1,5 +1,5 @@
-async function acodeTest() {
-  acode.setPluginInit("com.example.plugin", (baseUrl, $page, cache) => {
+async function _acodeTest() {
+  acode.setPluginInit("com.example.plugin", (_baseUrl, $page, _cache) => {
     const { commands } = editorManager.editor;
     commands.addCommand({
       name: "example-plugin",
@@ -51,7 +51,7 @@ async function acodeTest() {
 
   await acode.installPlugin("com.example.pluginid", "mypluin.id");
 
-  const file = acode.newEditorFile("example.js", {
+  const _file = acode.newEditorFile("example.js", {
     text: 'console.log("Hello World");',
     editable: true,
   });
@@ -122,7 +122,7 @@ namespace ui {
 
     export async function multiPrompt() {
       const multiPrompt = acode.require("multiPrompt");
-      const myPrompt = await multiPrompt(
+      const _myPrompt = await multiPrompt(
         "Enter your name & age",
         [
           { type: "text", id: "name" },
@@ -143,7 +143,7 @@ namespace ui {
         test: (value: string) => emailRegex.test(value),
       };
 
-      const userEmail = await prompt(
+      const _userEmail = await prompt(
         "What is your email?",
         "",
         "email",
@@ -153,7 +153,7 @@ namespace ui {
 
     export async function select() {
       const select = acode.require("select");
-      const result = await select("Pick a color", ["Red", "Green", "Blue"]);
+      const _result = await select("Pick a color", ["Red", "Green", "Blue"]);
 
       const items = [
         ["edit", "Edit File", "edit", false],
@@ -167,24 +167,38 @@ namespace ui {
         onCancel: () => console.log("Selection cancelled"),
       };
 
-      const action = await select("File Actions", items, options);
+      const _action = await select("File Actions", items, options);
 
       const features = [
         { value: "sync", text: "Cloud Sync", checkbox: true },
         { value: "backup", text: "Auto Backup", checkbox: false },
-        { value: "formatting", text: "Code Formatting", checkbox: true },
+        {
+          value: "formatting",
+          text: "Code Formatting",
+          checkbox: true,
+        },
       ];
 
-      const selected = await select("Enable Features", features, {
+      const _selected = await select("Enable Features", features, {
         hideOnSelect: false,
       });
 
       const users = [
-        { value: "john", text: "John Smith", icon: "letters", letters: "JS" },
-        { value: "jane", text: "Jane Doe", icon: "letters", letters: "JD" },
+        {
+          value: "john",
+          text: "John Smith",
+          icon: "letters",
+          letters: "JS",
+        },
+        {
+          value: "jane",
+          text: "Jane Doe",
+          icon: "letters",
+          letters: "JD",
+        },
       ];
 
-      const selectedUser = await select("Choose User", users);
+      const _selectedUser = await select("Choose User", users);
     }
 
     export function dialogBox() {
@@ -308,13 +322,13 @@ namespace interfaceApi {
         container.innerHTML = "<div>App Content</div>";
       },
       false, // Add to end of sidebar
-      (container) => {
+      (_container) => {
         // Handle when app is selected
         console.log("App selected");
       },
     );
 
-    const container = sideBarApps.get("my_app_id");
+    const _container = sideBarApps.get("my_app_id");
 
     sideBarApps.remove("my_app_id");
   }
@@ -344,7 +358,7 @@ namespace utils {
   export function aceModes() {
     const aceModes = acode.require("aceModes");
 
-    const onClick = () => {
+    const _onClick = () => {
       // Action to perform when the menu item is clicked
       console.log("Custom Mode Menu Item Clicked!");
     };
@@ -390,33 +404,33 @@ namespace utils {
 
     const filesystem = fs("url");
 
-    const link1 = fs("http://example.com");
-    const link2 = fs("https://example.com");
+    const _link1 = fs("http://example.com");
+    const _link2 = fs("https://example.com");
 
     if (filesystem.lsDir) {
-      const allFiles = await filesystem.lsDir();
+      const _allFiles = await filesystem.lsDir();
     }
 
-    const fileContent = await filesystem.readFile();
+    const _fileContent = await filesystem.readFile();
 
     await filesystem.writeFile("content to write");
 
-    const createdFile = await filesystem.createFile(
+    const _createdFile = await filesystem.createFile(
       "filename.js",
       "file content",
     );
 
-    const createdDirectory = await filesystem.createDirectory("newDirectory");
+    const _createdDirectory = await filesystem.createDirectory("newDirectory");
 
     await filesystem.delete();
 
-    const copiedItem = await filesystem.copyTo("destination");
+    const _copiedItem = await filesystem.copyTo("destination");
 
-    const movedItem = await filesystem.moveTo("destination");
+    const _movedItem = await filesystem.moveTo("destination");
 
-    const renamedItem = await filesystem.renameTo("newName");
+    const _renamedItem = await filesystem.renameTo("newName");
 
-    const doesExist = await filesystem.exists();
+    const _doesExist = await filesystem.exists();
   }
 
   export function projects() {
@@ -449,27 +463,27 @@ namespace utils {
   export function url() {
     const Url = acode.require("Url");
 
-    const basename = Url.basename("ftp://localhost/foo/bar/index.html");
+    const _basename = Url.basename("ftp://localhost/foo/bar/index.html");
     // Output: 'index.html'
 
-    const areSame = Url.areSame("https://example.com", "https://example.com");
+    const _areSame = Url.areSame("https://example.com", "https://example.com");
     // Output: true
 
-    const extname = Url.extname("ftp://localhost/foo/bar/index.html");
+    const _extname = Url.extname("ftp://localhost/foo/bar/index.html");
     // Output: '.html'
 
-    const safeUrl = Url.safe(
+    const _safeUrl = Url.safe(
       "https://www.example.com/path/to/file.html?query=string#hash",
     );
     // Output: 'https://www.example.com/path/to/file.html%3Fquery%3Dstring%23hash'
 
-    const pathname = Url.pathname("ftp://myhost.com/foo/bar/index.html");
+    const _pathname = Url.pathname("ftp://myhost.com/foo/bar/index.html");
     // Output: '/foo/bar'
 
-    const dirname = Url.dirname("ftp://localhost/foo/bar");
+    const _dirname = Url.dirname("ftp://localhost/foo/bar");
     // Output: 'ftp://localhost/foo/'
 
-    const parsedUrl = Url.parse("https://example.com/path?query=string");
+    const _parsedUrl = Url.parse("https://example.com/path?query=string");
     // Output: { url: 'https://example.com/path', query: '?query=string' }
 
     const urlObj = {
@@ -478,20 +492,20 @@ namespace utils {
       path: "path/to/page",
       query: { key: "value" },
     } as const;
-    const formattedUrl = Url.formate(urlObj);
+    const _formattedUrl = Url.formate(urlObj);
     // Output: 'https://example.com/path/to/page?key=value'
 
-    const hiddenPasswordUrl = Url.hidePassword(
+    const _hiddenPasswordUrl = Url.hidePassword(
       "ftp://user:password@localhost/foo/bar",
     );
     // Output: 'ftp://user@localhost/foo/bar'
 
-    const decodedUrl = Url.decodeUrl(
+    const _decodedUrl = Url.decodeUrl(
       "https://user:pass@host.com:8080/path?query=string",
     );
     // Output: { username: 'user', password: 'pass', hostname: 'host.com', pathname: '/path', port: 8080, query: { query: 'string' } }
 
-    const trimmedUrl = Url.trimSlash("https://example.com/path/");
+    const _trimmedUrl = Url.trimSlash("https://example.com/path/");
     // Output: 'https://example.com/path'
   }
 }
