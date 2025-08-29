@@ -1,6 +1,6 @@
 {
   "name": "@acode-app/types",
-  "version": "1.11.2",
+  "version": "1.11.5",
   "types": "src/index.d.ts",
   "author": {
     "name": "alMukaafih",
