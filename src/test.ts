@@ -27,7 +27,8 @@ async function _acodeTest() {
 
   // You can access the module using the module name
 
-  acode.require("say-hello").hello(); // Hello World!
+  (acode.require("say-hello") as any).hello(); // Hello World!
+  acode.require("url");
 
   acode.exec("console"); // Opens the console
 

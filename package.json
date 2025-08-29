@@ -10,8 +10,16 @@
   "repository": {
     "url": "git+https://github.com/alMukaafih/acode-app_types.git"
   },
-  "files": ["./src", "LICENSE", "README.md"],
-  "keywords": ["acode", "types", "acode-app"],
+  "files": [
+    "./src",
+    "LICENSE",
+    "README.md"
+  ],
+  "keywords": [
+    "acode",
+    "types",
+    "acode-app"
+  ],
   "license": "MIT",
   "packageManager": "yarn@4.5.1",
   "devDependencies": {

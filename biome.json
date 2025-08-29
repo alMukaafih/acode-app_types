@@ -11,7 +11,7 @@
         "useShorthandFunctionType": "off"
       },
       "suspicious": {
-        "noExplicitAny": "off"
+        "noExplicitAny": "warn"
       }
     }
   },
@@ -33,6 +33,6 @@
     }
   },
   "files": {
-    "ignore": ["node_modules", "src/ace", "src/require.d.ts"]
+    "ignore": ["node_modules", "types"]
   }
 }

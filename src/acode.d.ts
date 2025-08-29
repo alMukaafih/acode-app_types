@@ -1,50 +1,167 @@
-import "./addedFolder";
-import "./editorManager";
-import type { ActionStack } from "./advanced/actionStack";
-import type { Intent } from "./advanced/intent";
-import type { EditorFile, FileOptions } from "./editor/file";
-import type { FileList } from "./editor/fileList";
-import type { WCPage } from "./editor/page";
-import type { Palette } from "./editor/palette";
-import type { Settings } from "./editor/settings";
-import type { Color } from "./helpers/color";
-import type { Fonts } from "./helpers/fonts";
-import type { InputHints } from "./helpers/inputHints";
-import type { ThemeBuilder } from "./helpers/themeBuilder";
-import type { Themes } from "./helpers/themes";
-import type { ContextMenuConstructor } from "./interface/contextMenu";
-import type { SidebarApps } from "./interface/sideBarApps";
-import type { SideButtonConstructor } from "./interface/sideButton";
-import type { Alert } from "./ui/dialogs/alert";
-import type { ColorPicker } from "./ui/dialogs/colorPicker";
-import type { Confirm } from "./ui/dialogs/confirm";
-import type { DialogBoxConstructor } from "./ui/dialogs/dialogBox";
-import type { Loader } from "./ui/dialogs/loader";
-import type { MultiPrompt } from "./ui/dialogs/multiPrompt";
-import type { Prompt } from "./ui/dialogs/prompt";
-import type { Select } from "./ui/dialogs/select";
-import type { SelectionMenu } from "./ui/selectionMenu";
-import type { Toast } from "./ui/toast";
-import type { Tutorial } from "./ui/tutorial";
-import type { AceModes } from "./utils/aceModes";
-import type { Encodings } from "./utils/encodings";
-import type { FS } from "./utils/fileSystem";
-import type { Helpers } from "./utils/helpers";
-import type { Keyboard } from "./utils/keyboard";
-import type { OpenFolder } from "./utils/openFolder";
-import type { Projects } from "./utils/projects";
-import type { Url } from "./utils/url";
-import type { WindowResize } from "./utils/windowResize";
+declare namespace Acode {
+  interface PluginInit {
+    /**
+     * When the init function is called, it will receive 3 parameters:
+     * @param baseUrl The base URL of the plugin. You can use this URL to access the files in the plugin directory.
+     * @param $page This page object can be used to show content.
+     * @param options This object can be used to access the cached files.
+     */
+    (baseUrl: string, $page: WCPage, options: PluginInitOptions): void;
+  }
+
+  interface PluginInitOptions {
+    /** Url of the cached file. */
+    cacheFileUrl: string;
+
+    /** File object of the cached file. Using this object, you can write/read the file. */
+    cacheFile: FileSystem;
+
+    /** If this is the first time the plugin is loaded, this value will be true. Otherwise, it will be false. */
+    firstInit: boolean;
+  }
+
+  interface PluginSettings {
+    /** An array of settings. */
+    list: {
+      /** The key of the setting. This key will be used to access the value of the setting. */
+      key: string;
+
+      /** The text of the setting. This text will be displayed in the settings page. */
+      text: string;
+
+      /** The icon of the setting. This icon will be displayed in the settings page. */
+      icon?: string;
+
+      /** The icon color of the setting. This icon color will be displayed in the settings page. */
+      iconColor?: string;
+
+      /** The info of the setting. This info will be displayed in the settings page. */
+      info?: string;
+
+      /** The value of the setting. This value will be displayed in the settings page. */
+      value?: unknown;
+
+      /** The value text of the setting. This value text will be displayed in the settings page. */
+      valueText?: (value: unknown) => string;
+
+      /** If this property is set to true, the setting will be displayed as a checkbox. */
+      checkbox?: boolean;
+
+      /** If this property is set to an array, the setting will be displayed as a select.
+       * The array should contain the options of the select. Each option can be a string or an array of two strings.
+       * If the option is a string, the value and the text of the option will be the same.
+       * If the option is an array of two strings, the first string will be the value of
+       * the option and the second string will be the text of the option. */
+      select?: Array<Array<string> | string>;
+
+      /**
+       * If this property is set to true, the setting will be displayed as a prompt.
+       */
+      prompt?: string;
+
+      /**
+       * The type of the prompt. This property is only used when the prompt property is set to true. The default value is text.
+       */
+      promptType?: string;
+
+      /**
+       * The options of the prompt. This property is only used when the prompt property is set to true and the promptType property is set to select.
+       */
+      promptOptions?: {
+        /**
+         * The regular expression to match the value.
+         */
+        match: RegExp;
+
+        /**
+         * If this property is set to true, the value is required.
+         */
+        required: boolean;
+
+        /**
+         * The placeholder of the prompt.
+         */
+        placeholder: string;
+
+        /**
+         * The test function to test the value.
+         * @param value
+         * @returns
+         */
+        test: (value: unknown) => boolean;
+      }[];
+    }[];
+
+    /**
+     * The callback function that will be called when the settings are changed.
+     * @param key
+     * @param value
+     * @returns
+     */
+    cb: (key: string, value: unknown) => void;
+  }
+
+  type Require = <K extends string>(
+    moduleName: K,
+  ) => Lowercase<K> extends keyof Modules ? Modules[Lowercase<K>] : unknown;
+
+  interface Modules {
+    acemodes: AceModes;
+    actionstack: ActionStack;
+    addedfolder: AddedFolder;
+    alert: Alert;
+    color: Color;
+    colorpicker: ColorPicker;
+    confirm: Confirm;
+    contextmenu: ContextMenuConstructor;
+    createkeyboardevent: CreateKeyboardEvent;
+    dialogbox: DialogBoxConstructor;
+    editorfile: EditorFile;
+    encodings: Encodings;
+    filelist: FileList;
+    fonts: Fonts;
+    fs: FS;
+    fsoperation: FS;
+    inputhints: InputHints;
+    helpers: Helpers;
+    intent: Intent;
+    keyboard: Keyboard;
+    loader: Loader;
+    multiprompt: MultiPrompt;
+    openfolder: OpenFolder;
+    page: WCPage;
+    palette: Palette;
+    projects: Projects;
+    prompt: Prompt;
+    select: Select;
+    selectionmenu: SelectionMenu;
+    settings: Settings;
+    sidebarapps: SidebarApps;
+    sidebutton: SideButtonConstructor;
+    terminal: Terminal;
+    themebuilder: typeof ThemeBuilder;
+    themes: Themes;
+    tointernalurl: Helpers["toInternalUri"];
+    toast: Toast;
+    tutorial: Tutorial;
+    url: Url;
+    windowresize: WindowResize;
+  }
+}
 
 /** The acode object is the global object that provides access to the Acode API.
  * You can use this object to access the API methods. */
-export interface Acode {
+interface Acode {
   /** This method is used to register the plugin.
    * @param pluginId` The ID of your plugin.
    * @param init The function that will be called when the plugin is loaded.
    * @param settings You can use this parameter to define the settings of the plugin.
    */
-  setPluginInit(pluginId: string, init: Init, settings?: PluginSettings): void;
+  setPluginInit(
+    pluginId: string,
+    init: Acode.PluginInit,
+    settings?: Acode.PluginSettings,
+  ): void;
 
   /** This method is used to set the unmount function.
    * This function will be called when the plugin is unloaded.
@@ -60,8 +177,8 @@ export interface Acode {
   initPlugin(
     id: string,
     baseUrl: string,
-    $page: WCPage,
-    options?: any,
+    $page: Acode.WCPage,
+    options?: Acode.PluginInitOptions,
   ): Promise<void>;
 
   unmountPlugin(id: string): void;
@@ -79,7 +196,7 @@ export interface Acode {
    * acode.require("say-hello").hello(); // Hello World!
    * ```
    */
-  require: Require;
+  require: Acode.Require;
 
   /**
    * This method executes a command defined in file src/lib/commands.js.
@@ -161,243 +278,102 @@ export interface Acode {
    * @returns A new EditorFile instance
    * @since v1.11.2, versionCode: 958
    */
-  newEditorFile(filename: string, options?: FileOptions): EditorFile;
+  newEditorFile(
+    filename: string,
+    options?: Acode.FileOptions,
+  ): Acode.EditorFile;
 
-  joinUrl: Url["join"];
-  alert: Alert;
-  confirm: Confirm;
-  select: Select;
-  multiPrompt: MultiPrompt;
-  loader: Loader;
-  prompt: Prompt;
-  fsOperation: FS;
+  joinUrl: Acode.Url["join"];
+  alert: Acode.Alert;
+  confirm: Acode.Confirm;
+  select: Acode.Select;
+  multiPrompt: Acode.MultiPrompt;
+  loader: Acode.Loader;
+  prompt: Acode.Prompt;
+  fsOperation: Acode.FS;
 
   get exitAppMessage(): string | undefined;
 
   setLoadingMessage(message: string): void;
 }
 
-interface Init {
-  /**
-   * When the init function is called, it will receive 3 parameters:
-   * @param baseUrl The base URL of the plugin. You can use this URL to access the files in the plugin directory.
-   * @param $page This page object can be used to show content.
-   * @param options This object can be used to access the cached files.
-   */
-  (baseUrl: string, $page: WCPage, options: Options): void;
-}
+/** The acode object is the global object that provides access to the Acode API.
+ * You can use this object to access the API methods. */
+declare const acode: Acode;
 
-interface Options {
-  /** Url of the cached file. */
-  cacheFileUrl: string;
+/** The directory where all the assets are stored. */
+declare const ASSETS_DIRECTORY: string;
 
-  /** File object of the cached file. Using this object, you can write/read the file. */
-  cacheFile: FileSystem;
+/**  The directory where all the cache files are stored. */
+declare const CACHE_STORAGE: string;
 
-  /** If this is the first time the plugin is loaded, this value will be true. Otherwise, it will be false. */
-  firstInit: boolean;
-}
+/** The directory where all the data files are stored. */
+declare const DATA_STORAGE: string;
 
-interface PluginSettings {
-  /** An array of settings. */
-  list: {
-    /** The key of the setting. This key will be used to access the value of the setting. */
-    key: string;
+/** The directory where all the plugins are stored. */
+declare const PLUGIN_DIR: string;
 
-    /** The text of the setting. This text will be displayed in the settings page. */
-    text: string;
+/** Whether the app supports theme or not. */
+declare const DOES_SUPPORT_THEME: boolean;
 
-    /** The icon of the setting. This icon will be displayed in the settings page. */
-    icon?: string;
+/** Whether the app is free version or not. */
+declare const IS_FREE_VERSION: boolean;
 
-    /** The icon color of the setting. This icon color will be displayed in the settings page. */
-    iconColor?: string;
+/** The file where all the keybindings are stored. */
+declare const KEYBINDING_FILE: string;
 
-    /** The info of the setting. This info will be displayed in the settings page. */
-    info?: string;
+/** The Android SDK version. */
+declare const ANDROID_SDK_INT: number;
 
-    /** The value of the setting. This value will be displayed in the settings page. */
-    value?: unknown;
+/**
+ * Logs a message with the specified log level.
+ * @param level - The log level.
+ * @param message - The message to be logged.
+ */
+declare function log(
+  level: "error" | "warn" | "info" | "debug",
+  message: unknown,
+): void;
 
-    /** The value text of the setting. This value text will be displayed in the settings page. */
-    valueText?: (value: unknown) => string;
+declare const ace: Ace;
 
-    /** If this property is set to true, the setting will be displayed as a checkbox. */
-    checkbox?: boolean;
-
-    /** If this property is set to an array, the setting will be displayed as a select.
-     * The array should contain the options of the select. Each option can be a string or an array of two strings.
-     * If the option is a string, the value and the text of the option will be the same.
-     * If the option is an array of two strings, the first string will be the value of
-     * the option and the second string will be the text of the option. */
-    select?: Array<Array<string> | string>;
-
-    /**
-     * If this property is set to true, the setting will be displayed as a prompt.
-     */
-    prompt?: string;
-
-    /**
-     * The type of the prompt. This property is only used when the prompt property is set to true. The default value is text.
-     */
-    promptType?: string;
-
-    /**
-     * The options of the prompt. This property is only used when the prompt property is set to true and the promptType property is set to select.
-     */
-    promptOptions?: {
-      /**
-       * The regular expression to match the value.
-       */
-      match: RegExp;
-
-      /**
-       * If this property is set to true, the value is required.
-       */
-      required: boolean;
-
-      /**
-       * The placeholder of the prompt.
-       */
-      placeholder: string;
-
-      /**
-       * The test function to test the value.
-       * @param value
-       * @returns
-       */
-      test: (value: unknown) => boolean;
-    }[];
-  }[];
-
-  /**
-   * The callback function that will be called when the settings are changed.
-   * @param key
-   * @param value
-   * @returns
-   */
-  cb: (key: string, value: unknown) => void;
-}
-
-export type Require = <K extends string>(
-  moduleName: K,
-) => Modules[Lowercase<K> extends keyof Modules ? Lowercase<K> : any];
-
-export interface Modules {
-  acemodes: AceModes;
-  actionstack: ActionStack;
-  alert: Alert;
-  color: Color;
-  colorpicker: ColorPicker;
-  confirm: Confirm;
-  contextmenu: ContextMenuConstructor;
-  dialogbox: DialogBoxConstructor;
-  editorfile: EditorFile;
-  encodings: Encodings;
-  filelist: FileList;
-  fonts: Fonts;
-  fs: FS;
-  fsoperation: FS;
-  inputhints: InputHints;
-  helpers: Helpers;
-  intent: Intent;
-  keyboard: Keyboard;
-  loader: Loader;
-  multiprompt: MultiPrompt;
-  openfolder: OpenFolder;
-  page: WCPage;
-  palette: Palette;
-  projects: Projects;
-  prompt: Prompt;
-  select: Select;
-  selectionmenu: SelectionMenu;
-  settings: Settings;
-  sidebarapps: SidebarApps;
-  sidebutton: SideButtonConstructor;
-  themebuilder: typeof ThemeBuilder;
-  themes: Themes;
-  toast: Toast;
-  tutorial: Tutorial;
-  url: Url;
-  windowresize: WindowResize;
-}
-
-declare global {
+interface Window {
   /** The acode object is the global object that provides access to the Acode API.
    * You can use this object to access the API methods. */
-  const acode: Acode;
+  acode: Acode;
 
   /** The directory where all the assets are stored. */
-  const ASSETS_DIRECTORY: string;
+  ASSETS_DIRECTORY: string;
 
   /**  The directory where all the cache files are stored. */
-  const CACHE_STORAGE: string;
+  CACHE_STORAGE: string;
 
   /** The directory where all the data files are stored. */
-  const DATA_STORAGE: string;
+  DATA_STORAGE: string;
 
   /** The directory where all the plugins are stored. */
-  const PLUGIN_DIR: string;
+  PLUGIN_DIR: string;
 
   /** Whether the app supports theme or not. */
-  const DOES_SUPPORT_THEME: boolean;
+  DOES_SUPPORT_THEME: boolean;
 
   /** Whether the app is free version or not. */
-  const IS_FREE_VERSION: boolean;
+  IS_FREE_VERSION: boolean;
 
   /** The file where all the keybindings are stored. */
-  const KEYBINDING_FILE: string;
+  KEYBINDING_FILE: string;
 
   /** The Android SDK version. */
-  const ANDROID_SDK_INT: number;
+  ANDROID_SDK_INT: number;
+
+  tag: typeof tag;
 
   /**
    * Logs a message with the specified log level.
    * @param level - The log level.
    * @param message - The message to be logged.
    */
-  function log(level: "error" | "warn" | "info" | "debug", message: any): void;
+  log: typeof log;
 
-  const ace: typeof import("ace");
-
-  interface Window {
-    /** The acode object is the global object that provides access to the Acode API.
-     * You can use this object to access the API methods. */
-    acode: Acode;
-
-    /** The directory where all the assets are stored. */
-    ASSETS_DIRECTORY: string;
-
-    /**  The directory where all the cache files are stored. */
-    CACHE_STORAGE: string;
-
-    /** The directory where all the data files are stored. */
-    DATA_STORAGE: string;
-
-    /** The directory where all the plugins are stored. */
-    PLUGIN_DIR: string;
-
-    /** Whether the app supports theme or not. */
-    DOES_SUPPORT_THEME: boolean;
-
-    /** Whether the app is free version or not. */
-    IS_FREE_VERSION: boolean;
-
-    /** The file where all the keybindings are stored. */
-    KEYBINDING_FILE: string;
-
-    /** The Android SDK version. */
-    ANDROID_SDK_INT: number;
-
-    tag: typeof tag;
-
-    /**
-     * Logs a message with the specified log level.
-     * @param level - The log level.
-     * @param message - The message to be logged.
-     */
-    log: typeof log;
-
-    ace: typeof import("ace");
-  }
+  ace: Ace;
 }
