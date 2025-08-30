@@ -1,3 +1,13 @@
+/// <reference path="./ace/index.d.ts" />
+/// <reference path="./components/index.d.ts" />
+/// <reference path="./dialogs/index.d.ts" />
+/// <reference path="./handlers/index.d.ts" />
+/// <reference path="./lib/index.d.ts" />
+/// <reference path="./theme/index.d.ts" />
+/// <reference path="./utils/index.d.ts" />
+/// <reference path="./fileSystem.d.ts" />
+/// <reference path="./sideBarApps.d.ts" />
+
 declare namespace Acode {
   interface PluginInit {
     /**

@@ -1,6 +1,6 @@
 {
   "name": "@acode-app/types",
-  "version": "1.11.5",
+  "version": "1.11.5-1",
   "types": "src/index.d.ts",
   "author": {
     "name": "alMukaafih",
@@ -9,6 +9,9 @@
   "readme": "README.md",
   "repository": {
     "url": "git+https://github.com/alMukaafih/acode-app_types.git"
+  },
+  "scripts": {
+    "link-types": "node ./scripts/linkTypes.js"
   },
   "files": [
     "./src",
