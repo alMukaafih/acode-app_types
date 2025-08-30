@@ -1,7 +1,7 @@
 {
   "name": "@acode-app/types",
   "version": "1.11.5-1",
-  "types": "src/index.d.ts",
+  "types": "index.d.ts",
   "author": {
     "name": "alMukaafih",
     "email": "almukaafih@gmail.com"
@@ -28,5 +28,8 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@codemirror/view": "^6.38.1"
   }
 }
