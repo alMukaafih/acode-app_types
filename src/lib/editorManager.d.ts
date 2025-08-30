@@ -1,5 +1,4 @@
 declare namespace Acode {
-
   /**
    * The editorManager allows to interact with the Editor Instance and listen to various events
    * of Acode app with the help of various methods and Properties.
@@ -22,9 +21,9 @@ declare namespace Acode {
     addFile(file: EditorFile): void;
 
     /**
-     * This is an instance of the Ace editor.
+     * This is an instance of the Ace
      */
-    editor: Ace.Editor;
+    editor: Editor;
 
     /**
      * This function gets files from the list of opened files.
@@ -46,12 +45,12 @@ declare namespace Acode {
     /**
      * Gets the height of the editor
      */
-    getEditorHeight(editor: Ace.Editor): number;
+    getEditorHeight(editor: EditorView): number;
 
     /**
      * Gets the height of the editor
      */
-    getEditorWidth(editor: Ace.Editor): number;
+    getEditorWidth(editor: EditorView): number;
 
     /**
      * container: HTMLElement
@@ -70,7 +69,7 @@ declare namespace Acode {
 
     readonly TIMEOUT_VALUE: number;
 
-    readonly openFileList: HTMLElement;
+    readonly openFileList: Collapsible;
 
     /** This function adds a listener for the specified event. */
     on(
@@ -93,6 +92,128 @@ declare namespace Acode {
 
     /** This function emits an event with the specified arguments. */
     emit(event: EditorEvent, ...args: any[]): void;
+  }
+
+  type EditorView = import("@codemirror/view").EditorView;
+
+  interface Editor extends EditorView {
+    /**
+     * Insert text at the current selection/cursor in the editor
+     * @returns success
+     */
+    insert(text: string): boolean;
+
+    setTheme(id: string): boolean;
+
+    /**
+     * Go to a specific line and column in the editor (CodeMirror implementation)
+     * Supports multiple input formats:
+     * - Simple line number: gotoLine(16) or gotoLine(16, 5)
+     * - Relative offsets: gotoLine("+5") or gotoLine("-3")
+     * - Percentages: gotoLine("50%") or gotoLine("25%")
+     * - Line:column format: gotoLine("16:5")
+     * - Mixed formats: gotoLine("+5:10") or gotoLine("50%:5")
+     *
+     * @param line - Line number (1-based), or string with special formats
+     * @param column - Column number (0-based) - only used with numeric line parameter
+     * @param animate - Whether to animate (not used in CodeMirror, for compatibility)
+     * @returns success
+     */
+    gotoLine(
+      line: number | string,
+      column?: number,
+      animate?: boolean,
+    ): boolean;
+
+    /**
+     * Get current cursor position)
+     * @returns Cursor position
+     */
+    getCursorPosition(): { row: number; column: number };
+
+    /**
+     * Compatibility object for session-related methods
+     */
+    session: {
+      /**
+       * Get scroll top position
+       * @returns Scroll top value
+       */
+      getScrollTop(): number;
+
+      /**
+       * Get scroll left position
+       * @returns Scroll left value
+       */
+      getScrollLeft(): number;
+
+      /**
+       * Get all folds
+       * @returns Empty array for now
+       */
+      getAllFolds(): [];
+
+      /**
+       * Get line content by row number
+       * @param row - Row number (1-based to match getCursorPosition)
+       * @returns Line content
+       */
+      getLine(row: number): string;
+
+      /**
+       * Set value of the editor
+       * @param text - Text to set
+       */
+      setValue(text: string): void;
+
+      getValue(): string;
+
+      readonly doc: EditorState["doc"];
+    };
+
+    /**
+     * Move cursor to specific position
+     * @param {} pos - Position to move to
+     */
+    moveCursorToPosition(pos: { row: number; column: number }): void;
+
+    /**
+     * Get the entire document value
+     * @returns {string} Document content
+     */
+    getValue(): string;
+
+    /**
+     * Compatibility object for selection-related methods
+     */
+    selection: {
+      /**
+       * Get current selection anchor
+       * @returns Anchor position
+       */
+      readonly anchor: number;
+
+      /**
+       * Get current selection range
+       * @returns Selection range
+       */
+      getRange(): {
+        start: { row: number; column: number };
+        end: { row: number; column: number };
+      };
+
+      /**
+       * Get cursor position
+       * @returns Cursor position
+       */
+      getCursor(): { row: number; column: number };
+    };
+
+    /**
+     * Get selected text or text under cursor (CodeMirror implementation)
+     * @returns Selected text
+     */
+    getCopyText(): string;
   }
 
   /** Editor Event */

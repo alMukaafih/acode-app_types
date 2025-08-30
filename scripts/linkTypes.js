@@ -1,24 +1,28 @@
 const { readdirSync, statSync, writeFileSync } = require("node:fs");
 const { resolve, join } = require("node:path");
 const BASE_DIR = resolve(__dirname, "../src");
+const INDEX = "index.d.ts";
 
 /**
  *
  * @param {string} path
  */
 function linkTypes(path) {
-  let refs = []
-  for (const p of readdirSync(path)) {
+  const refs = [];
+  const paths = readdirSync(path);
+  if (path.length === 1 && paths[0] === INDEX) return;
+
+  for (const p of paths) {
     if (statSync(join(path, p)).isDirectory()) {
-      linkTypes(join(path, p))
-      refs.push(`/// <reference path="./${p}/index.d.ts" />`)
+      linkTypes(join(path, p));
+      refs.push(`/// <reference path="./${p}/${INDEX}" />`);
     } else {
-      if (p !== "index.d.ts" && p !== "test.ts") {
-        refs.push(`/// <reference path="./${p}" />`)
+      if (p !== INDEX && p !== "test.ts") {
+        refs.push(`/// <reference path="./${p}" />`);
       }
     }
   }
-  writeFileSync(join(path, "index.d.ts"), refs.join("\n"))
+  writeFileSync(join(path, INDEX), refs.join("\n"));
 }
 
-linkTypes(BASE_DIR)
+linkTypes(BASE_DIR);

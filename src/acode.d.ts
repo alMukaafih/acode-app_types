@@ -1,13 +1,3 @@
-/// <reference path="./ace/index.d.ts" />
-/// <reference path="./components/index.d.ts" />
-/// <reference path="./dialogs/index.d.ts" />
-/// <reference path="./handlers/index.d.ts" />
-/// <reference path="./lib/index.d.ts" />
-/// <reference path="./theme/index.d.ts" />
-/// <reference path="./utils/index.d.ts" />
-/// <reference path="./fileSystem.d.ts" />
-/// <reference path="./sideBarApps.d.ts" />
-
 declare namespace Acode {
   interface PluginInit {
     /**
@@ -116,7 +106,10 @@ declare namespace Acode {
   ) => Lowercase<K> extends keyof Modules ? Modules[Lowercase<K>] : unknown;
 
   interface Modules {
-    acemodes: AceModes;
+    acemodes: {
+      addMode: AddMode;
+      removeMode: RemoveMode;
+    };
     actionstack: ActionStack;
     addedfolder: AddedFolder;
     alert: Alert;
@@ -127,6 +120,8 @@ declare namespace Acode {
     createkeyboardevent: CreateKeyboardEvent;
     dialogbox: DialogBoxConstructor;
     editorfile: EditorFile;
+    editorlanguages: EditorLanguages;
+    editorthemes: EditorThemes;
     encodings: Encodings;
     filelist: FileList;
     fonts: Fonts;
@@ -345,8 +340,6 @@ declare function log(
   message: unknown,
 ): void;
 
-declare const ace: Ace;
-
 interface Window {
   /** The acode object is the global object that provides access to the Acode API.
    * You can use this object to access the API methods. */
@@ -380,10 +373,8 @@ interface Window {
 
   /**
    * Logs a message with the specified log level.
-   * @param level - The log level.
-   * @param message - The message to be logged.
+   * @param level The log level.
+   * @param message The message to be logged.
    */
   log: typeof log;
-
-  ace: Ace;
 }

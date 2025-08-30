@@ -1,5 +1,4 @@
 declare namespace Acode {
-
   /**
    * The Editor File API provides functionality to create, manage, interact with files/tabs in the Acode editor.
    * It handles file operations, state management, editor session control, custom editor tab, etc.
@@ -39,9 +38,9 @@ declare namespace Acode {
     deletedFile: boolean;
 
     /**
-     * EditSession of the file
+     * CodeMirror document state for the file
      */
-    session: Ace.EditSession;
+    session: EditorState;
 
     /**
      * Encoding of the text e.g. 'gbk'
@@ -295,7 +294,7 @@ declare namespace Acode {
     scrollTop?: number;
 
     /** Code folds */
-    folds?: Ace.Fold[];
+    // folds?: Ace.Fold[];
 
     /** Type of content (e.g., 'editor')
      * @default "editor"
@@ -318,6 +317,17 @@ declare namespace Acode {
      */
     hideQuickTools?: boolean;
   }
+
+  /**
+   * The editor state class is a persistent (immutable) data structure.
+   * To update a state, you [create](https://codemirror.net/6/docs/ref/#state.EditorState.update) a
+   * [transaction](https://codemirror.net/6/docs/ref/#state.Transaction), which produces a _new_ state
+   * instance, without modifying the original object.
+   *
+   * As such, _never_ mutate properties of a state directly. That'll
+   * just break things.
+   */
+  type EditorState = import("@codemirror/state").EditorState;
 
   interface FileEvent {
     target: EditorFile;
