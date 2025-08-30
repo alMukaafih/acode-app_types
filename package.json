@@ -1,6 +1,6 @@
 {
   "name": "@acode-app/types",
-  "version": "1.11.5-1",
+  "version": "1.11.6",
   "types": "index.d.ts",
   "author": {
     "name": "alMukaafih",
@@ -16,7 +16,9 @@
   "files": [
     "./src",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "./index.d.ts",
+    "./types"
   ],
   "keywords": [
     "acode",
