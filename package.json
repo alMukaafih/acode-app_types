@@ -16,7 +16,9 @@
   "files": [
     "./src",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "./index.d.ts",
+    "./types"
   ],
   "keywords": [
     "acode",
