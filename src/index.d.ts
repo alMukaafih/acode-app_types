@@ -1,4 +1,4 @@
-/// <reference path="./ace/index.d.ts" />
+/// <reference path="./codemirror/index.d.ts" />
 /// <reference path="./acode.d.ts" />
 /// <reference path="./components/index.d.ts" />
 /// <reference path="./dialogs/index.d.ts" />
